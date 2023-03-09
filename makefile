@@ -1,7 +1,7 @@
 f = -Iinclude
-obj = bin/main.exe bin/reporter.exe bin/creator.exe
+obj = bin/Main.exe bin/Reporter.exe bin/Creator.exe
 run: build
-	./bin/main.exe
+	./bin/Main.exe
 build: $(obj);
 bin/%.exe: src/%.cpp
 	g++ $(f)  $< -o $@
