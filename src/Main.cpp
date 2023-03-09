@@ -26,6 +26,7 @@ int main()
     std::cout << "Enter binary file name\n";
     std::string binFile;
     std::cin >> binFile;
+    binFile = "doc/" + binFile;
     std::cout << "Enter number of entries\n";
     int numberOfEntries;
     std::cin >> numberOfEntries; 
@@ -45,6 +46,7 @@ int main()
     std::cout << "Enter report file name\n";
     std::string reportFile;
     std::cin >> reportFile;
+    reportFile = "doc/" + reportFile;
     std::cout << "Enter payment per hour\n";
     double payment;
     std::cin >> payment;
