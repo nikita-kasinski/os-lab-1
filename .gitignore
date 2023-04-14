@@ -1,4 +1,6 @@
-*.exe
-*.o
+bin/*
+cov/*
+obj/*
 .vscode
-doc/*
+*.txt
+
