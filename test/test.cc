@@ -140,7 +140,13 @@ TEST(TestPrintCreateReportFile, TestStandartFlow)
     delete[] employees;
 }
 
-TEST(TestPrintReportFile, TestNoFile)
+TEST(TestPrintCreateFile, TestNoFile)
 {
     EXPECT_FALSE(Controller::createReportFile("abacaba", "report.txt", 5));
+}
+
+TEST(TestPrintReportFile, TestNoFile)
+{
+    std::ostringstream out;
+    EXPECT_FALSE(Controller::printReportFile("abacaba", out));
 }
