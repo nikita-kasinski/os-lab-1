@@ -45,7 +45,6 @@ bool Controller::printBinaryFile(const std::string &binFile, std::ostream &out)
     size_t numberOfEntries;
 
     fin.read((char *)(&numberOfEntries), sizeof(size_t));
-
     for (int i = 0; i < numberOfEntries; ++i)
     {
         Employee employee;
@@ -54,6 +53,23 @@ bool Controller::printBinaryFile(const std::string &binFile, std::ostream &out)
             << Controller::numWidth << employee.num
             << Controller::nameWidth << employee.name
             << Controller::hoursWidth << employee.hours << "\n";
+    }
+
+    return true;
+}
+
+bool printReportFile(const std::string &reportFile, std::ostream &out)
+{
+    std::ifstream fin(reportFile.c_str());
+    if (!fin.good())
+    {
+        return false;
+    }
+
+    std::string line;
+    while (getline(fin, line))
+    {
+        out << line << "\n";
     }
 
     return true;
