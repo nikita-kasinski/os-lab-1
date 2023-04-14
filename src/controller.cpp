@@ -58,7 +58,7 @@ bool Controller::printBinaryFile(const std::string &binFile, std::ostream &out)
     return true;
 }
 
-bool printReportFile(const std::string &reportFile, std::ostream &out)
+bool Controller::printReportFile(const std::string &reportFile, std::ostream &out)
 {
     std::ifstream fin(reportFile.c_str());
     if (!fin.good())
