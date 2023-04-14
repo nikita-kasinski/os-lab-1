@@ -25,4 +25,7 @@ public:
     static bool printBinaryFile(const std::string &binFile, std::ostream &out);
 
     static bool printReportFile(const std::string &reportFile, std::ostream &out);
+
+    static bool createBinaryFile(const std::string& binFile, const Employee* employees, const size_t employeesSize);
+    
 };
