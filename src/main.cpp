@@ -1,7 +1,7 @@
 #include <iostream>
 #include <windows.h>
 #include <fstream>
-#include <stdio.h>
+#include <sstream>
 #include "employee.h"
 
 void Start(char *command)
@@ -32,9 +32,11 @@ int main()
     std::cout << "Enter number of entries\n";
     std::cin >> numberOfEntries;
 
-    char commandCreator[1000];
-    sprintf(commandCreator, "%s %s %d", "Creator.exe", binFile.c_str(), numberOfEntries);
-    Start(commandCreator);
+    {
+        std::string creator = "Creator.exe";
+        std::string commandCreator = creator + " " + binFile + " " + std::to_string(numberOfEntries);
+        Start(const_cast<char *>(commandCreator.c_str()));
+    }
 
     std::cout << "Binary file content:\n";
     std::ifstream fin(binFile, std::ios_base::binary);
@@ -58,9 +60,11 @@ int main()
     std::cout << "Enter payment per hour\n";
     std::cin >> payment;
 
-    char commandReporter[1000];
-    sprintf(commandReporter, "%s %s %s %lf", "Reporter.exe", binFile.c_str(), reportFile.c_str(), payment);
-    Start(commandReporter);
+    {
+        std::string reporter = "Reporter.exe";
+        std::string commandReporter = reporter + " " + binFile + " " + reportFile + " " + std::to_string(payment);
+        Start(const_cast<char *>(commandReporter.c_str()));
+    }
 
     std::string line;
     fin.open(reportFile);
