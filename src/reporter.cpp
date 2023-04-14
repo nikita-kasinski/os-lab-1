@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include "employee.h"
+#include "controller.h"
 
 using namespace std;
 
@@ -17,22 +18,10 @@ int main(int argc, char *argv[])
             return 1;
         }
     }
-    string inFile(argv[1]);
-    string outfile(argv[2]);
+    string binFile(argv[1]);
+    string reportfile(argv[2]);
     double paymentPerHour = atof(argv[3]);
-    int numberOfEntries;
-    ifstream fin(inFile, ios_base::binary);
-    fin.read((char *)(&numberOfEntries), sizeof(int));
-    ofstream fout(outfile);
-    fout << setw(5) << "id" << setw(12) << "name" << setw(10) << "hours" << setw(10) << "salary\n";
-    for (int i = 0; i < numberOfEntries; ++i)
-    {
-        employee Employee;
-        fin.read((char *)(&Employee), sizeof(employee));
-        fout << setw(5) << Employee.num << setw(12) << Employee.name
-             << setw(10) << Employee.hours << setw(10) << Employee.hours * paymentPerHour << "\n";
-    }
-    fin.close();
-    fout.close();
+    
+    Controller::createReportFile(binFile, reportfile, paymentPerHour);
     return 0;
 }
