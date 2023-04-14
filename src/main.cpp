@@ -50,8 +50,7 @@ int main()
     std::cout << "Enter report file name\n";
     std::cin >> reportFile;
 
-    std::cout << "Enter payment per hour\n";
-    std::cin >> payment;
+    payment = Controller::safePositiveDoubleInput(std::cin, std::cout, "Enter payment per hour\n", "Value must be positive double\n");
 
     {
         std::string reporter = "Reporter.exe";
@@ -61,6 +60,6 @@ int main()
 
     std::cout << "Report content:\n";
     Controller::printReportFile(reportFile, std::cout);
-    
+
     return 0;
 }
