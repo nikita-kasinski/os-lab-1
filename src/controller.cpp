@@ -145,7 +145,7 @@ bool Controller::createReportFile(
         << std::setw(Controller::numWidth) << "id" 
         << std::setw(Controller::nameWidth) << "name" 
         << std::setw(Controller::hoursWidth) << "hours" 
-        << std::setw(Controller::paymentWidth) << "payment\n";
+        << std::setw(Controller::paymentWidth) << "payment" << "\n";
 
     for (size_t i = 0; i < numberOfEntries; ++i)
     {
