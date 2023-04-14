@@ -35,6 +35,38 @@ size_t Controller::safeUnsignedIntegerInput(
     return static_cast<size_t>(tempAns);
 }
 
+double Controller::safePositiveDoubleInput(
+    std::istream &in,
+    std::ostream &out,
+    const std::string &inputPrompt,
+    const std::string &inputFailedPrompt)
+{
+    constexpr auto maxStreamSize = std::numeric_limits<std::streamsize>::max();
+    double tempAns = -1;
+    bool failed = false;
+
+    while (tempAns <= 0)
+    {
+        if (failed)
+        {
+            out << inputFailedPrompt;
+        }
+        else
+        {
+            failed = true;
+        }
+        out << inputPrompt;
+        in >> tempAns;
+        if (!in.good())
+        {
+            in.clear();
+            in.ignore(maxStreamSize, '\n');
+            tempAns = -1;
+        }
+    }
+    return tempAns;
+}
+
 bool Controller::printBinaryFile(const std::string &binFile, std::ostream &out)
 {
     std::ifstream fin(binFile.c_str());
