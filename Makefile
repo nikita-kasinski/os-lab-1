@@ -7,7 +7,6 @@ objC = obj/creator.o
 objR = obj/reporter.o
 obj = obj/controller.o
 objT = obj/test.o obj/tcontroller.o
-coverageObj = obj/tcontroller.gcda
 CC = g++
 CPPFLAGS = -std=c++17 -Wall -Iinclude
 TESTLIB = -lgtest -lgtest_main -lgcov
