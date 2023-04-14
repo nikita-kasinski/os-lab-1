@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include "employee.h"
+#include "controller.h"
 
 void Start(char *command)
 {
@@ -24,13 +25,18 @@ void Start(char *command)
 int main()
 {
     std::string binFile;
-    int numberOfEntries;
+    std::string reportFile;
+    size_t numberOfEntries;
+    double payment;
 
     std::cout << "Enter binary file name\n";
     std::cin >> binFile;
 
-    std::cout << "Enter number of entries\n";
-    std::cin >> numberOfEntries;
+    numberOfEntries = Controller::safeUnsignedIntegerInput(
+        std::cin, 
+        std::cout, 
+        "Enter number of entries\n", 
+        "Value must be positive integer");
 
     {
         std::string creator = "Creator.exe";
@@ -39,23 +45,10 @@ int main()
     }
 
     std::cout << "Binary file content:\n";
-    std::ifstream fin(binFile, std::ios_base::binary);
-    fin.read((char *)(&numberOfEntries), sizeof(int));
-    for (int i = 0; i < numberOfEntries; ++i)
-    {
-        employee Employee;
-        fin.read((char *)(&Employee), sizeof(employee));
-        std::cout << Employee.num << " " << Employee.name << " " << Employee.hours << "\n";
-    }
-    fin.close();
-    std::cout << "\n";
-
-    std::string reportFile;
-
+    Controller::printBinaryFile(binFile, std::cout);
+    
     std::cout << "Enter report file name\n";
     std::cin >> reportFile;
-
-    double payment;
 
     std::cout << "Enter payment per hour\n";
     std::cin >> payment;
@@ -66,12 +59,8 @@ int main()
         Start(const_cast<char *>(commandReporter.c_str()));
     }
 
-    std::string line;
-    fin.open(reportFile);
     std::cout << "Report content:\n";
-    while (getline(fin, line))
-    {
-        std::cout << line << "\n";
-    }
+    Controller::printReportFile(reportFile, std::cout);
+    
     return 0;
 }
