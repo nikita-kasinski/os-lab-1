@@ -1,7 +1,7 @@
 # Exercise 1 ОS
 ## Made by Nikita Kasinski
 ### Overview
-The app comprises main process and two utility processe: reporter and creator. Creator creates binary file with employee data, reporter reads binary file data and produces text report file with employee data plus their payment info
+The app comprises main process and two utility processes: reporter and creator. Creator creates binary file with employee data, reporter reads binary file data and produces text report file with employee data plus their payment info
 ### Tools
 * gcc - compiler
 * make - build automation tool
