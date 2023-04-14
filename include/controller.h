@@ -16,7 +16,7 @@ public:
         const std::string &inputPrompt,
         const std::string &inputFailedPrompt);
 
-    static double safeDoubleInput(
+    static double safePositiveDoubleInput(
         std::istream &in,
         std::ostream &out,
         const std::string &inputPrompt,
