@@ -3,4 +3,5 @@ cov/*
 obj/*
 .vscode
 *.txt
+binfile
 
