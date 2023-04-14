@@ -106,3 +106,20 @@ bool Controller::printReportFile(const std::string &reportFile, std::ostream &ou
 
     return true;
 }
+
+bool Controller::createBinaryFile(const std::string& binFile, const Employee* employees, const size_t employeesSize)
+{
+    std::ofstream fout(binFile);
+    if (!fout.good())
+    {
+        return false;
+    }
+
+    fout.write((char *)(&employeesSize), sizeof(size_t));
+    for (size_t i = 0; i < employeesSize; ++i)
+    {
+        fout.write((char *)(&employees[i]), sizeof(Employee));
+    }
+    
+    return true;
+}
