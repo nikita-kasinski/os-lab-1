@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include "employee.h"
+#include "controller.h"
 
 using namespace std;
 
@@ -16,20 +17,19 @@ int main(int argc, char *argv[])
         }
     }
 
-    string fileName = string(argv[1]);
-    int numberOfEntries = atoi(argv[2]);
+    string binFile = string(argv[1]);
+    size_t numberOfEntries = static_cast<size_t>(atoi(argv[2]));
+    Employee *employees = new Employee[numberOfEntries];
     string message = "Enter entries in the form: [id] [employeeName] [hours worked]";
-    ofstream fout(fileName, std::ios_base::binary);
-    employee *employees = new employee[numberOfEntries];
 
     cout << message << "\n";
-    fout.write((char *)(&numberOfEntries), sizeof(int));
-    for (int i = 0; i < numberOfEntries; ++i)
+    for (size_t i = 0; i < numberOfEntries; ++i)
     {
         cin >> employees[i].num >> employees[i].name >> employees[i].hours;
-        fout.write((char *)(&employees[i]), sizeof(employee));
     }
-    fout.close();
+    
+    Controller::createBinaryFile(binFile, employees, numberOfEntries);
+
     delete[] employees;
     return 0;
 }
