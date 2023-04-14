@@ -36,7 +36,7 @@ int main()
         std::cin, 
         std::cout, 
         "Enter number of entries\n", 
-        "Value must be positive integer");
+        "Value must be positive integer\n");
 
     {
         std::string creator = "Creator.exe";
@@ -50,7 +50,11 @@ int main()
     std::cout << "Enter report file name\n";
     std::cin >> reportFile;
 
-    payment = Controller::safePositiveDoubleInput(std::cin, std::cout, "Enter payment per hour\n", "Value must be positive double\n");
+    payment = Controller::safePositiveDoubleInput(
+        std::cin, 
+        std::cout, 
+        "Enter payment per hour\n", 
+        "Value must be positive double\n");
 
     {
         std::string reporter = "Reporter.exe";
