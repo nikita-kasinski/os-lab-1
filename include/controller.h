@@ -6,8 +6,10 @@ class Controller
 {
 public:
     static size_t safeUnsignedIntegerInput(
-        std::istream &in, 
-        std::ostream &out, 
-        const std::string &inputPrompt, 
+        std::istream &in,
+        std::ostream &out,
+        const std::string &inputPrompt,
         const std::string &inputFailedPrompt);
+
+    static bool printBinaryFile(const std::string &binFile, std::ostream &out);
 };
