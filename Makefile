@@ -1,7 +1,7 @@
 EXECM = bin/main.exe
 EXECC = bin/creator.exe
 EXECR = bin/reporter.exe
-EXECT = bin/text.exe
+EXECT = bin/test.exe
 objM = obj/main.o
 objC = obj/creator.o
 objR = obj/reporter.o
