@@ -1,3 +1,5 @@
+#pragma once
+
 struct Employee
 {
     int num;        // id 
