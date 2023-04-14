@@ -1,10 +1,12 @@
 #include <limits>
+#include <iomanip>
 #include "controller.h"
+#include "employee.h"
 
 size_t Controller::safeUnsignedIntegerInput(
-    std::istream &in, 
-    std::ostream &out, 
-    const std::string &inputPrompt, 
+    std::istream &in,
+    std::ostream &out,
+    const std::string &inputPrompt,
     const std::string &inputFailedPrompt)
 {
     constexpr auto maxStreamSize = std::numeric_limits<std::streamsize>::max();
@@ -31,4 +33,28 @@ size_t Controller::safeUnsignedIntegerInput(
         }
     }
     return static_cast<size_t>(tempAns);
+}
+
+bool Controller::printBinaryFile(const std::string &binFile, std::ostream &out)
+{
+    std::ifstream fin(binFile.c_str());
+    if (!fin.good())
+    {
+        return false;
+    }
+    size_t numberOfEntries;
+
+    fin.read((char *)(&numberOfEntries), sizeof(size_t));
+
+    for (int i = 0; i < numberOfEntries; ++i)
+    {
+        Employee employee;
+        fin.read((char *)(&employee), sizeof(Employee));
+        out
+            << Controller::numWidth << employee.num
+            << Controller::nameWidth << employee.name
+            << Controller::hoursWidth << employee.hours << "\n";
+    }
+
+    return true;
 }
