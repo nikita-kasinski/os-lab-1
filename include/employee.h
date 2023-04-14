@@ -1,4 +1,4 @@
-struct employee
+struct Employee
 {
     int num;        // id 
     char name[10];  // name
