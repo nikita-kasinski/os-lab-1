@@ -69,22 +69,22 @@ double Controller::safePositiveDoubleInput(
 
 bool Controller::printBinaryFile(const std::string &binFile, std::ostream &out)
 {
-    std::ifstream fin(binFile.c_str());
+    std::ifstream fin(binFile.c_str(), std::ios::binary);
     if (!fin.good())
     {
         return false;
     }
     size_t numberOfEntries;
 
-    fin.read((char *)(&numberOfEntries), sizeof(size_t));
-    for (int i = 0; i < numberOfEntries; ++i)
+    fin.read(reinterpret_cast<char *>(&numberOfEntries), sizeof(size_t));
+    for (size_t i = 0; i < numberOfEntries; ++i)
     {
         Employee employee;
-        fin.read((char *)(&employee), sizeof(Employee));
+        fin.read(reinterpret_cast<char *>(&employee), sizeof(Employee));
         out
-            << Controller::numWidth << employee.num
-            << Controller::nameWidth << employee.name
-            << Controller::hoursWidth << employee.hours << "\n";
+            << std::setw(Controller::numWidth) << employee.num
+            << std::setw(Controller::nameWidth) << employee.name
+            << std::setw(Controller::hoursWidth) << employee.hours << "\n";
     }
 
     return true;
@@ -107,19 +107,56 @@ bool Controller::printReportFile(const std::string &reportFile, std::ostream &ou
     return true;
 }
 
-bool Controller::createBinaryFile(const std::string& binFile, const Employee* employees, const size_t employeesSize)
+bool Controller::createBinaryFile(const std::string &binFile, const Employee *employees, const size_t employeesSize)
 {
-    std::ofstream fout(binFile);
+    std::ofstream fout(binFile, std::ios::binary);
     if (!fout.good())
     {
         return false;
     }
 
-    fout.write((char *)(&employeesSize), sizeof(size_t));
+    fout.write(reinterpret_cast<const char *>(&employeesSize), sizeof(size_t));
     for (size_t i = 0; i < employeesSize; ++i)
     {
-        fout.write((char *)(&employees[i]), sizeof(Employee));
+        fout.write(reinterpret_cast<const char *>(&employees[i]), sizeof(Employee));
     }
-    
+
+    return true;
+}
+
+bool Controller::createReportFile(
+    const std::string &binFile,
+    const std::string &reportFile,
+    const double payment)
+{
+    std::ifstream fin(binFile.c_str(), std::ios::binary);
+    std::ofstream fout(reportFile.c_str());
+
+    if (!fin.good())
+    {
+        return false;
+    }
+
+    size_t numberOfEntries;
+    fin.read(reinterpret_cast<char *>(&numberOfEntries), sizeof(size_t));
+
+    // print headers
+    fout
+        << std::setw(Controller::numWidth) << "id" 
+        << std::setw(Controller::nameWidth) << "name" 
+        << std::setw(Controller::hoursWidth) << "hours" 
+        << std::setw(Controller::paymentWidth) << "payment\n";
+
+    for (size_t i = 0; i < numberOfEntries; ++i)
+    {
+        Employee employee;
+        fin.read(reinterpret_cast<char *>(&employee), sizeof(Employee));
+        fout 
+        << std::setw(Controller::numWidth) << employee.num 
+        << std::setw(Controller::nameWidth)<< employee.name 
+        << std::setw(Controller::hoursWidth) << employee.hours 
+        << std::setw(Controller::paymentWidth) << employee.hours * payment << "\n";
+    }
+
     return true;
 }
