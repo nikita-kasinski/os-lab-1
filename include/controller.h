@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <fstream>
+#include "employee.h"
 
 class Controller
 {
@@ -26,13 +27,10 @@ public:
 
     static bool printReportFile(const std::string &reportFile, std::ostream &out);
 
-    static bool createBinaryFile(const std::string& binFile, const Employee* employees, const size_t employeesSize);
+    static bool createBinaryFile(const std::string &binFile, const Employee *employees, const size_t employeesSize);
 
     static bool createReportFile(
-        const std::string& binFile, 
-        const std::string& reportFile, 
-        const Employee* employees,
-        const size_t employeesSize,
+        const std::string &binFile,
+        const std::string &reportFile,
         const double payment);
-
 };
